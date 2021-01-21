@@ -1,6 +1,24 @@
 const URL = "http://www.omdbapi.com/?apikey=e5f20042&";
 const selector = document.getElementById("movie");
 
+const firstMovies = (movie) => {
+  
+  let movieNameCleaned = movie.replace(/\s/g, "+");
+  fetch(URL + "t=" + movieNameCleaned)
+    .then((response) => response.json())
+    .then(movie => {
+
+      const poster = movie.Poster;
+      const title = movie.Title;
+      const released = movie.Released;
+      const plot = movie.Plot;
+      showFilmInfo(poster, title, released, plot)
+  })
+    .catch(error => {
+      console.log(error);
+    })
+};
+
 const showFilmInfo = (poster, title, released, movieId) => {
   selector.innerHTML += `
   <div class="movies-items">
@@ -71,3 +89,12 @@ const fetchMovieMore = (movieId) => {
       console.log(error);
   })
 }
+
+firstMovies("Harry potter and the sorcerer's stone");
+firstMovies("Jurassic Park");
+firstMovies("Lord of the rings");
+firstMovies("Shutter Island");
+firstMovies("Batman");
+firstMovies("Forrest Gump");
+firstMovies("Parasite");
+firstMovies("Mulan");
