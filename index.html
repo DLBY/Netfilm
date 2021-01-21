@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
   </head>
+
   <body>
+    <!--  -->
   <nav class="main-nav">
     
     <div class="logo">Netfilm</div>
@@ -19,7 +21,7 @@
         <a href="#tvShows">TV Shows</a>
         <a href="#movies">Movies</a>
       </div>
-
+      <!-- Search Bar -->
     <div class="wrap">
       <form class="search">
           <input type="text" class="searchTerm" placeholder="Search your film here" id="searchbar">
@@ -29,9 +31,16 @@
       </form>
    </div>
   </nav>
-   <div class="movies-list hidden" id="movie"></div>
+
+   <!-- Show movies -->
+   <div class="movies-list" id="movie"></div>
+
+   <!-- Modal -->
+   <div id="modal" class="modal hidden"></div>
+
+
     <script src="js/finder.js" async defer></script>
-    <script src="js/main.js" async defer></script>
     <script src="js/searchbar.js" async defer></script>
+    <script src="js/intersectionobs.js" async defer></script>
   </body>
 </html>

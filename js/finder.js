@@ -1,29 +1,26 @@
-const URL = `http://www.omdbapi.com/?apikey=c6c49b9f&t=`;
-const searchURL = `http://www.omdbapi.com/?apikey=c6c49b9f&s=`;
+const URL = "http://www.omdbapi.com/?apikey=e5f20042&";
 const selector = document.getElementById("movie");
 
-const form = document.querySelector("form");
-
-const readMore = () => {
-  let modal = document.getElementById("myModal");
-  let button1= document.getElementById("button1")
-  button1.addEventListener("click" , () => {
-  modal.style.display = "block";})
-  let span = document.getElementsByClassName("close")[0];
-  span.addEventListener("click", () => {
-    modal.style.display = "none";
-    window.addEventListener("click", () => {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-  });
-});
+const showFilmInfo = (poster, title, released, movieId) => {
+  selector.innerHTML += `
+  <div class="movies-items">
+  <img src=${poster}>
+  <div class="movieBottom">
+      <h4>${title} (${released})</h4>
+      <div class="readMore">
+        <a href="#" class="button1" id="button1" onclick="fetchMovieMore('${movieId}')")>Read more</a>
+      </div>
+    </div>
+  </div>
+  `
 }
 
-const showMovieModal = (selector, poster, title, released, plot) => {
-  
-  modal.style.display = "block";
-  selector.innerHTML += `
+const showMovieModal = (poster, title, released, plot) => {
+  const showModal = document.getElementById("modal");
+  const modal = document.getElementById("modal");
+  showModal.innerHTML = ""
+  modal.classList.remove("hidden");
+  showModal.innerHTML += `
   <div class="modal-content">
   <span class="close">&times;</span>
     <img src=${poster}>
@@ -32,61 +29,45 @@ const showMovieModal = (selector, poster, title, released, plot) => {
         <p>${plot} </p>
     </div>
 `
+  document.addEventListener("click", () => {
+      modal.classList.add("hidden");
+  })
 }
 
-const fetchMovieMore = (movie) => {
+const fetchMovies = (movie) => {
   
   let movieNameCleaned = movie.replace(/\s/g, "+");
-  fetch(URL + movieNameCleaned)
+  fetch(URL + "s=" + movieNameCleaned)
     .then((response) => response.json())
     .then((response) => {
+      let movies = response.Search
       selector.innerHTML = "";
       console.log(response);
-      showFilmInfo(selector, response.Poster, response.Title, response.Released, response.Plot);
-    })
+      movies.forEach(movie => {
+        const poster = movie.Poster;
+        const title = movie.Title;
+        const released = movie.Year;
+        const movieId = movie.imdbID
+        showFilmInfo(poster, title, released, movieId)
+    });
+  })
     .catch(error => {
       console.log(error);
     })
 };
 
-const searchMovie = (movie) => {
-  
-  let movieNameCleaned = movie.replace(/\s/g, "+");
-  fetch(searchURL + movieNameCleaned)
-    .then((response) => response.json())
-    .then((response) => {
-      selector.innerHTML = "";
-      let movies = response.Search
-      movies.forEach(movie => {
-      console.log(response);
-      showFilmInfo(selector, movie.Poster, movie.Title, movie.Year, movie.Plot);
-    });
+const fetchMovieMore = (movieId) => {
+  fetch(URL + "i=" + movieId.toString())
+  .then(response => response.json())
+  .then(movie => {
+
+      const poster = movie.Poster;
+      const title = movie.Title;
+      const released = movie.Released;
+      const plot = movie.Plot;
+      showMovieModal(poster, title, released, plot)
   })
-  
-    .catch(error => {
+  .catch(error => {
       console.log(error);
-    })
-}
-
-form.addEventListener("submit", (e) => {
-  const submitResearch = document.getElementById("searchbar").value;
-  e.preventDefault();
-  searchMovie(submitResearch);
-});
-
-
-const showFilmInfo = (selector, poster, title, released) => {
-  selector.innerHTML += `
-  <div class="movies-items">
-  <img src=${poster}>
-  <div class="movieBottom">
-      <h4>${title} (${released})</h4>
-    
-      <div class="readMore">
-        <a href="#" class="button1" id="button1">Read more</a>
-      </div>
-    </div>
-  </div>
-
-  `
+  })
 }

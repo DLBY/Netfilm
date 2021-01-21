@@ -160,8 +160,10 @@ a.button1{
   }
 
 /* Modal style */
-.modal {
-  display: none; /* Hidden by default */
+.hidden {
+  display: none;
+}
+.modal { /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
