@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
 
   <body>
@@ -37,10 +39,16 @@
 
    <!-- Modal -->
    <div id="modal" class="modal hidden"></div>
-
-
+   <footer>
+    <p>&copy 1997-2020 Netflix, Inc.</p>
+    <a href="https://github.com/DLBY">David Lobry 2020</a>
+  </footer>
+   <script>
+    AOS.init();
+  </script>
     <script src="js/finder.js" async defer></script>
     <script src="js/searchbar.js" async defer></script>
     <script src="js/intersectionobs.js" async defer></script>
+
   </body>
 </html>

@@ -1,23 +1,22 @@
+const formSearch = document.querySelector("form");
 
-const look = () => {
-  let observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0.5) {
-          entry.target.classList.remove("not-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: [0.5],
-    }
-  );
 
-  let items = document.querySelectorAll(".row");
+formSearch.addEventListener("submit", (e) => {
+    const movieSearch = document.getElementById("searchbar").value;
+    e.preventDefault();
+    fetchMovies(movieSearch)
 
-  items.forEach((item) => {
-    item.classList.add("not-visible");
-    observer.observe(item);
-  });
-};
+    let observer = new IntersectionObserver(entries => {
+        console.log(entries);
+    }, {
+
+    })
+
+
+
+    items.forEach(item => {
+        console.log("item =>", item);
+        observer.observe(item)
+    })
+
+})

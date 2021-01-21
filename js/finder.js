@@ -21,13 +21,10 @@ const firstMovies = (movie) => {
 
 const showFilmInfo = (poster, title, released, movieId) => {
   selector.innerHTML += `
-  <div class="movies-items">
-  <img src=${poster}>
+  <div class="movies-items not-visible" data-aos="fade-up">
+  <img class="movie_poster"src=${poster} onclick="fetchMovieMore('${movieId}')")>
   <div class="movieBottom">
-      <h4>${title} (${released})</h4>
-      <div class="readMore">
-        <a href="#" class="button1" id="button1" onclick="fetchMovieMore('${movieId}')")>Read more</a>
-      </div>
+      <h4>${title} <br>(${released})</h4>
     </div>
   </div>
   `
@@ -69,6 +66,23 @@ const fetchMovies = (movie) => {
         showFilmInfo(poster, title, released, movieId)
     });
   })
+  .then(() => {
+    let observer = new IntersectionObserver(observables => {
+        observables.forEach(observable => {
+            if (observable.intersectionRatio > 0.5) {
+                observable.target.classList.remove("not-visible")
+                observer.unobserve(observable.target);
+            }
+        })
+    }, {
+        threshold: [0.5]
+    })
+
+    let items = document.querySelectorAll(".movies-items")
+    items.forEach(item => {
+        observer.observe(item)
+    })
+  })
     .catch(error => {
       console.log(error);
     })
@@ -98,3 +112,8 @@ firstMovies("Batman");
 firstMovies("Forrest Gump");
 firstMovies("Parasite");
 firstMovies("Mulan");
+
+firstMovies("Soul");
+firstMovies("Toy Story");
+firstMovies("Avengers");
+firstMovies("Get Out");
