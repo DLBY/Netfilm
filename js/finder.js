@@ -1,29 +1,92 @@
-const URL = "https://api.weatherbit.io/v2.0/current?postal_code=59199&country=FR&lang=fr&key=6d6e048c34ba48c19818ec9f5a1c1117";
+const URL = `http://www.omdbapi.com/?apikey=c6c49b9f&t=`;
+const searchURL = `http://www.omdbapi.com/?apikey=c6c49b9f&s=`;
+const selector = document.getElementById("movie");
 
-let selector = document.getElementById("currentWeather");
+const form = document.querySelector("form");
 
-fetch(URL)
-.then((response) => response.json())
-.then((response) => {
-  console.log(response);
-  return response;
-})
-.then((response) => {
-  response.data.forEach((weather) => {showWeather(selector, weather.weather.icon, weather.city_name, weather.weather.description, weather.temp, weather.precip);})
+const readMore = () => {
+  let modal = document.getElementById("myModal");
+  let button1= document.getElementById("button1")
+  button1.addEventListener("click" , () => {
+  modal.style.display = "block";})
+  let span = document.getElementsByClassName("close")[0];
+  span.addEventListener("click", () => {
+    modal.style.display = "none";
+    window.addEventListener("click", () => {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+  });
+});
+}
+
+const showMovieModal = (selector, poster, title, released, plot) => {
+  
+  modal.style.display = "block";
+  selector.innerHTML += `
+  <div class="modal-content">
+  <span class="close">&times;</span>
+    <img src=${poster}>
+        <h2>${title}</h2>
+        <p>${released} </p>
+        <p>${plot} </p>
+    </div>
+`
+}
+
+const fetchMovieMore = (movie) => {
+  
+  let movieNameCleaned = movie.replace(/\s/g, "+");
+  fetch(URL + movieNameCleaned)
+    .then((response) => response.json())
+    .then((response) => {
+      selector.innerHTML = "";
+      console.log(response);
+      showFilmInfo(selector, response.Poster, response.Title, response.Released, response.Plot);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+};
+
+const searchMovie = (movie) => {
+  
+  let movieNameCleaned = movie.replace(/\s/g, "+");
+  fetch(searchURL + movieNameCleaned)
+    .then((response) => response.json())
+    .then((response) => {
+      selector.innerHTML = "";
+      let movies = response.Search
+      movies.forEach(movie => {
+      console.log(response);
+      showFilmInfo(selector, movie.Poster, movie.Title, movie.Year, movie.Plot);
+    });
+  })
+  
+    .catch(error => {
+      console.log(error);
+    })
+}
+
+form.addEventListener("submit", (e) => {
+  const submitResearch = document.getElementById("searchbar").value;
+  e.preventDefault();
+  searchMovie(submitResearch);
 });
 
-const showWeather = (selector,icon, name, temps, temperature, rain) => {
+
+const showFilmInfo = (selector, poster, title, released) => {
   selector.innerHTML += `
-      <div class="flex justify-center items-center">
-      <img src="https://www.weatherbit.io/static/img/icons/${icon}.png" alt="">
+  <div class="movies-items">
+  <img src=${poster}>
+  <div class="movieBottom">
+      <h4>${title} (${released})</h4>
+    
+      <div class="readMore">
+        <a href="#" class="button1" id="button1">Read more</a>
       </div>
-      <div class="text-center">
-        <hr>
-          <h2>Ville : ${name}</h2>
-          <h2>Temps : ${temps}°</h2>
-          <h2>Température : ${temperature}°</h2>
-          <p>Risque de pluie : ${rain} %</p>
-          <hr>
-      </div>
+    </div>
+  </div>
+
   `
 }

@@ -1,0 +1,207 @@
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* Global css */
+:root {
+  --primary: #141414;
+  --light: #F3F3F3;
+  --dark: 	#686868;
+}
+
+img:hover {
+  transform: all .2s ease-in-out;
+}
+
+html, body{
+  background: #141414;
+  font-family: 'Open Sans', sans-serif;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+h1 {
+  color:#E50813;
+  font-weight: bold;
+}
+
+/* Search bar css */
+.search {
+  width: 100%;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #E50813;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #E50813;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #E50813;
+  background: #E50813;
+  text-align: center;
+  color:  #141414;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+
+.wrap{
+  width: 20%;
+  margin: auto;
+}
+
+/* Logo style */
+.logo {
+  margin: auto;
+  cursor: pointer;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 220%;
+  font-weight: 500;
+  color: #dd3532;
+  text-shadow:
+          1px 1px 0 #600,
+          -1px -1px 0 #600,
+          1px -1px 0 #600,
+          -1px 1px 0 #600,
+          1px 1px 0 #600;
+}
+
+.logo:hover {
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+} 
+
+/* Nav style */
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  margin-bottom: 150px;
+}
+
+nav a {
+  color: var(--light);
+  text-decoration: none;
+  margin: 4px;  
+}
+
+nav a:hover {
+  color: var(--dark);
+}
+
+.nav-links {
+  margin: auto;
+  display: flex;
+  font-weight: 500;
+}
+
+/* Movie organization */
+img {
+  max-width: 100%;
+}
+
+.movies-list {
+  display: grid;
+
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+};
+
+.movies-items {
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.movieBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+.readMore {
+  height: 40px;
+  
+}
+a.button1{
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.2s;
+  }
+  a.button1:hover{
+  color:#000000;
+  background-color:#FFFFFF;
+  }
+
+/* Modal style */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  height: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+  /* Media queries */
+  @media all and (max-width:30em){
+   a.button1{
+  display:block;
+  margin:0.4em auto;
+  }
+ }
